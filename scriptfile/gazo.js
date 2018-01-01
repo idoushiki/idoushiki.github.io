@@ -1,11 +1,13 @@
 ﻿
+var myImage;
+(new Image()).src=myImage;
 
 myImage = new Array(                      // 画像ファイル名の設定
 
- "i.png","i2.png",
- "i3.png", "i4.png", "i5.png","i6.png", "i7.png",
- "i8.png", "i9.png", "i10.png", "i11.png", "i12.png", "i13.png", "i14.png", "i15.png", "i16.png", "i17.png",
- "i18.png", "i19.png", "i20.png", "i21.png", "i22.png", "i23.png"
+ "../img1/i.png","../img1/i2.png",
+ "../img1/i3.png", "../img1/i4.png", "../img1/i5.png","../img1/i6.png", "../img1/i7.png",
+ "../img1/i8.png", "../img1/i9.png", "../img1/i10.png", "../img1/i11.png", "../img1/i12.png", "../img1/i13.png", "../img1/i14.png", "../img1/i15.png", "../img1/i16.png", "../img1/i17.png",
+ "../img1/i18.png", "../img1/i19.png", "../img1/i20.png", "../img1/i21.png", "../img1/i22.png", "../img1/i23.png"
 );
 myNowCnt = -1;                        // 現在表示している画像番号
 function myChange(){                 // 定期的に画像を更新する関数
