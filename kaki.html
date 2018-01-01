@@ -1,0 +1,237 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>お絵かき</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+
+<style>
+
+body {
+ text-align:center;
+ width: 1200px;
+ margin:0 auto;
+
+}
+
+h1 {
+	font-size:36px;
+	font-family: Arial, sans-serif;
+	font-weight:bold;
+}
+
+
+#canvas {
+  border:1px solid gray;
+}
+
+#aaa {
+  overflow:hidden;
+  margin-top:20px;
+}
+
+#bbb {
+  float: left;
+  width: 750px;
+  margin-left: -20px;
+}
+
+#ccc {
+  margin-left: 600px;
+  width: 500px;
+  height: 500px;
+  cursor: pointer;
+}
+
+
+li {
+  width: 30px;
+  height: 30px;
+  display:inline-block;
+
+}
+
+#item1 {
+	float:left;
+	width:auto;
+	margin-left:300px;
+}
+
+
+</style>
+
+
+</head>
+<body>
+<h1>PAINT</h1>
+<div id="aaa">
+  <div id="bbb">
+  <canvas id="canvas" width="600px" height="500px"></canvas>
+  </div>
+  <div id="ccc">
+  <ul>
+<li style="background-color:#000000"></li>
+<li style="background-color:#ffffff"></li>
+
+</ul>
+
+  </div>
+</div>
+<div id="item">
+	<div id="item1">
+<p>線の太さ<input type="range" min="0" max="100" value="10" id="lineWidth"><span id="lineNum">10</span></p>
+
+	</div>
+	<div id="item2">
+<p><button style="width:100px;" id="clear">消去</button>  <button style="width:100px;" onclick="save()">保存</button></p>
+
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<script>
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+
+
+//マウスを操作する
+var mouse = {x:0,y:0,x1:0,y1:0,color:"black"};
+var draw = false;
+
+//マウスの座標を取得する
+canvas.addEventListener("mousemove",function(e) {
+  var rect = e.target.getBoundingClientRect();
+  ctx.lineWidth = document.getElementById("lineWidth").value;
+	ctx.globalAlpha = 1;
+
+  mouseX = e.clientX - rect.left;
+  mouseY = e.clientY - rect.top;
+
+
+  //クリック状態なら描画をする
+  if(draw === true) {
+    ctx.beginPath();
+    ctx.moveTo(mouseX1,mouseY1);
+    ctx.lineTo(mouseX,mouseY);
+    ctx.lineCap = "round";
+    ctx.stroke();
+    mouseX1 = mouseX;
+    mouseY1 = mouseY;
+  }
+});
+
+  //クリックしたら描画をOKの状態にする
+  canvas.addEventListener("mousedown",function(e) {
+    draw = true;
+    mouseX1 = mouseX;
+    mouseY1 = mouseY;
+    undoImage = ctx.getImageData(0, 0,canvas.width,canvas.height);
+});
+
+
+//クリック離したら終了する
+canvas.addEventListener("mouseup", function(e){
+  draw = false;
+});
+
+
+//線の太さ
+lineWidth.addEventListener("mousemove",function(){
+var lineNum = document.getElementById("lineWidth").value;
+document.getElementById("lineNum").innerHTML = lineNum;
+});
+
+
+
+//色
+  $('li').click(function() {
+        ctx.strokeStyle = $(this).css('background-color');
+    });
+
+//消去
+ $('#clear').click(function(e) {
+ 		if(!confirm('本当に消去しますか？')) return;
+        e.preventDefault();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+
+
+
+//保存する
+function save(){
+  var can = canvas.toDataURL("image/png");
+  can = can.replace("image/png", "image/octet-stream");
+  window.open(can,"save");
+
+}
+
+
+//スマホ用
+	var finger=new Array;
+	for(var i=0;i<10;i++){
+		finger[i]={
+			x:0,y:0,x1:0,y1:0,
+			color:"rgb("
+			+Math.floor(Math.random()*16)*15+","
+			+Math.floor(Math.random()*16)*15+","
+			+Math.floor(Math.random()*16)*15
+			+")"
+		};
+	}
+
+	//瞬間座標を取得
+	canvas.addEventListener("touchstart",function(e){
+		e.preventDefault();
+		var rect = e.target.getBoundingClientRect();
+		ctx.lineWidth = document.getElementById("lineWidth").value;
+		ctx.globalAlpha = 1;
+		undoImage = ctx.getImageData(0, 0,canvas.width,canvas.height);
+		for(var i=0;i<finger.length;i++){
+			finger[i].x1 = e.touches[i].clientX-rect.left;
+			finger[i].y1 = e.touches[i].clientY-rect.top;
+
+
+
+		}
+	});
+
+	//タッチして描画
+	canvas.addEventListener("touchmove",function(e){
+		e.preventDefault();
+		var rect = e.target.getBoundingClientRect();
+		for(var i=0;i<finger.length;i++){
+			finger[i].x = e.touches[i].clientX-rect.left;
+			finger[i].y = e.touches[i].clientY-rect.top;
+			ctx.beginPath();
+			ctx.moveTo(finger[i].x1,finger[i].y1);
+			ctx.lineTo(finger[i].x,finger[i].y);
+			ctx.lineCap="round";
+			ctx.stroke();
+			finger[i].x1=finger[i].x;
+			finger[i].y1=finger[i].y;
+
+		}
+	});
+
+
+
+
+
+
+	//線の太さの値を変える
+lineWidth.addEventListener("touchmove",function(){
+var lineNum = document.getElementById("lineWidth").value;
+document.getElementById("lineNum").innerHTML = lineNum;
+});
+
+
+
+
+
+</script>
+
+</body>
+</html>
