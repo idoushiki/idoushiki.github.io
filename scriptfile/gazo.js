@@ -1,7 +1,7 @@
 function ImageLoop(imageid,frameurl){
 
   this.imageid=imageid;
-  this.frameInterval=1000/8;
+  this.frameInterval=1000/5;
   this.frames=new Array(frameurl.length);
 
   this.image=null;
