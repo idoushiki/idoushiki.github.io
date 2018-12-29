@@ -10,6 +10,8 @@ var num=[1];
 //window.onload=function(){
   var canvas = document.getElementById('c');
     var ctx = canvas.getContext('2d');
+    ctx.fillStyle = "rgb(255, 255, 255)";
+    ctx.fillRect(0, 0, 600, 600);
 
 canvas.addEventListener('click', onClick, false);
 // number bf picture
