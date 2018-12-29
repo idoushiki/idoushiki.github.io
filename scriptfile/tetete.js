@@ -37,7 +37,7 @@ function HozonImg()
   downloadlink.href=canvas.toDataURL('image/png');
   downloadlink.download=filename;
   downloadlink.click();
-}
+}}
 
 function clc(){//clear picture
 //キャンバスクリアする
