@@ -16,7 +16,7 @@ canvas.addEventListener('click', onClick, false);
 function onClick(e) {
 
   var img=new Image();
-  img.src="https://idoushiki.web.fc2.com/tetetetatter/img/"+num+".png";
+  img.src="https://idoushiki.github.io/img/"+num+".png";
   var x = e.pageX-50;
   var y = e.pageY-200;
   ctx.drawImage(img, x, y,100,100);
@@ -26,8 +26,17 @@ function onClick(e) {
 
 function HozonImg()
 {
- var png = canvas.toDataURL();
-  document.getElementById("newImg").src = png;
+  var canvas = document.getElementById('c');
+  var downloadlink=document.getElementById('downloadlink');
+  var filename='TeteteTatta.png';
+  if(canvas.msToBlob){
+    var b=canvas.msToBlob();
+    window.navigator.msSaveBlob(blob,filename);
+
+  }else{
+  downloadlink.href=canvas.toDataURL('image/png');
+  downloadlink.download=filename;
+  downloadlink.click();
 }
 
 function clc(){//clear picture
@@ -56,7 +65,7 @@ function onClick(e) {
 
   size=  document.getElementById("lineNum").innerHTML;
   var img=new Image();
-  img.src="https://idoushiki.web.fc2.com/tetetetatter/img/"+num+".png";
+  img.src="https://idoushiki.github.io/img/"+num+".png";
   var rect = e.target.getBoundingClientRect();
       x = e.clientX*2- rect.left-(size/2);
       y = e.clientY*2- rect.top-(size);
