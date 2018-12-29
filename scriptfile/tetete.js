@@ -67,8 +67,8 @@ function onClick(e) {
   var img=new Image();
   img.src="https://idoushiki.github.io/img/"+num+".png";
   var rect = e.target.getBoundingClientRect();
-      x = e.clientX*2- rect.left-(size/2);
-      y = e.clientY*2- rect.top-(size);
+      x = e.clientX- rect.left-(size/2);
+      y = e.clientY- rect.top-(size);
 
 
   ctx.drawImage(img, x, y,size,size);
