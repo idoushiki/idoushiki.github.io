@@ -16,7 +16,7 @@ canvas.addEventListener('click', onClick, false);
 function onClick(e) {
 
   var img=new Image();
-  img.src="img/"+num+".png";
+  img.src="https://idoushiki.web.fc2.com/tetetetatter/img/"+num+".png";
   var x = e.pageX-50;
   var y = e.pageY-200;
   ctx.drawImage(img, x, y,100,100);
