@@ -38,7 +38,7 @@ ctx.clearRect(0, 0, 800, 800);
 
 lineWidth.addEventListener("mousemove",function(){//size of picture
 
-  document.getElementById("image").style.cursor = 'url("../img/1.png"),auto';
+  document.getElementById("image").style.cursor = 'url("https://idoushiki.github.io/img/1.png"),auto';
 
 var lineNum = document.getElementById("lineWidth").value;
 document.getElementById("lineNum").innerHTML = lineNum;
