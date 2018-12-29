@@ -56,7 +56,7 @@ function onClick(e) {
 
   size=  document.getElementById("lineNum").innerHTML;
   var img=new Image();
-  img.src="img/"+num+".png";
+  img.src="https://idoushiki.web.fc2.com/tetetetatter/img/"+num+".png";
   var rect = e.target.getBoundingClientRect();
       x = e.clientX*2- rect.left-(size/2);
       y = e.clientY*2- rect.top-(size);
